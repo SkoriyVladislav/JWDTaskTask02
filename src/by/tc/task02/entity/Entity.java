@@ -1,14 +1,12 @@
 package by.tc.task02.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Entity {
     private List<Entity> list;
     private String tag;
-    private Map<String, String> attributes;
+    private String value;
     private int level;
 
     public Entity(String tag, int level) {
@@ -44,11 +42,12 @@ public class Entity {
         this.level = level;
     }
 
-    public void addAttributes(String tag, String info) {
-        if (attributes == null) {
-            attributes = new HashMap<>();
-        }
-        attributes.put(tag,info);
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public void addEntity(Entity e) {

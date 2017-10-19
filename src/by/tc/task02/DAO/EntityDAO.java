@@ -1,7 +1,7 @@
 package by.tc.task02.DAO;
 
-import java.util.Stack;
+import java.util.Queue;
 
 public interface EntityDAO {
-    Stack<String> createStack();
+    Queue<String> createQueue();
 }

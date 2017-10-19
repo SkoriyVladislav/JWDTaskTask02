@@ -7,7 +7,7 @@ import by.tc.task02.service.EntityListService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
 
 public class EntityListServiceImpl implements EntityListService {
     @Override
@@ -15,10 +15,17 @@ public class EntityListServiceImpl implements EntityListService {
         DAOFactory factory = DAOFactory.getInstance();
         EntityDAO applianceDAO = factory.getEntityDAO();
 
-        Stack<String> stack = applianceDAO.createStack();
+        Queue<String> queue = applianceDAO.createQueue();
         List<Entity> list = new ArrayList<>();
-
+        initializationList(list,queue);
 
         return list;
+    }
+
+    private void initializationList(List<Entity> list, Queue<String> queue) {
+        while (queue.peek() != null) {
+            String str = queue.poll();
+
+        }
     }
 }
