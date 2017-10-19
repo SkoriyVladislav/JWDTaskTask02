@@ -8,8 +8,8 @@ import java.util.Queue;
 public class EntityDAOImpl implements EntityDAO {
     @Override
     public Queue<String> createQueue() {
-        Queue<String> Queue = new ArrayDeque<>();
+        Queue<String> queue = new ArrayDeque<>();
 
-        return Queue;
+        return queue;
     }
 }
