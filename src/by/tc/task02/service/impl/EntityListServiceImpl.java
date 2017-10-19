@@ -23,6 +23,7 @@ public class EntityListServiceImpl implements EntityListService {
         Queue<String> queue = applianceDAO.createQueue();
         List<Entity> list = new ArrayList<>();
         initializationList(list,queue);
+        introdOfDepend(list);
 
         return list;
     }
@@ -52,6 +53,35 @@ public class EntityListServiceImpl implements EntityListService {
             }
 
             list.get(list.size()).setValue(line);
+        }
+    }
+
+    private void introdOfDepend(List<Entity> list) {
+        int maxDepend = 0;
+
+        for(Entity e : list ) {
+
+            if(maxDepend < e.getLevel()) {
+
+                maxDepend = e.getLevel();
+            }
+        }
+
+        for (int i = maxDepend; i > 0; i++) {
+
+            for(int j = 0; j < list.size(); j++) {
+
+                if(list.get(j).getLevel() == i) {
+
+                    for (int k = 1; k <= j; k++) {
+
+                        if (list.get(j - k).getLevel() == i - 1) {
+
+                            list.get(j-k).addEntity(list.get(j));
+                        }
+                    }
+                }
+            }
         }
     }
 }
