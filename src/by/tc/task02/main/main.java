@@ -8,6 +8,6 @@ public class main {
         ServiceFactory factory = ServiceFactory.getInstance();
         EntityListService service = factory.getEntityService();
 
-
+        System.out.println(service.createListEntity());
     }
 }

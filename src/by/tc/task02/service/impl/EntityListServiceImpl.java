@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EntityListServiceImpl implements EntityListService {
-    static private String OPENTAG = "<[a-z]|[A-Z]>";
-    static private String CLOUSETAG = "</[a-z]|[A-Z]>";
+    static private String OPENTAG = "<\\w+>";//"<[^/]+>"; //"^.+<[a-z]|[A-Z](.+)>";
+    static private String CLOUSETAG = "</\\w+>";
 
     @Override
     public List<Entity> createListEntity() {
@@ -31,7 +31,7 @@ public class EntityListServiceImpl implements EntityListService {
     private void initializationList(List<Entity> list, Queue<String> queue) {
         int level = 0;
         while (queue.peek() != null) {
-            String line = queue.poll();
+            String line = queue.poll().trim();
 
             if (Pattern.matches(OPENTAG, line)) {
 
@@ -39,7 +39,9 @@ public class EntityListServiceImpl implements EntityListService {
                 Matcher matcher = pat.matcher(line);
                 String str = null;
                 if (matcher.find())	{
-                    str = matcher.group().replaceAll("< | >", " ").trim();
+                    str = matcher.group().replaceAll("<", " ").trim();
+                    str = str.replaceAll(">", " ").trim();
+                    str = str.replaceAll("/", " ").trim();
                 }
 
                 list.add(new Entity(str, level));
@@ -52,7 +54,8 @@ public class EntityListServiceImpl implements EntityListService {
                 continue;
             }
 
-            list.get(list.size()).setValue(line);
+            list.get(list.size() - 1).setValue(line);
+            //list.add(new Entity(level, line));
         }
     }
 
@@ -67,17 +70,18 @@ public class EntityListServiceImpl implements EntityListService {
             }
         }
 
-        for (int i = maxDepend; i > 0; i++) {
+        for (int i = maxDepend; i > 0; i--) {
 
             for(int j = 0; j < list.size(); j++) {
 
                 if(list.get(j).getLevel() == i) {
 
-                    for (int k = 1; k <= j; k++) {
+                    for (int k = 0; k <= j; k++) {
 
                         if (list.get(j - k).getLevel() == i - 1) {
 
                             list.get(j-k).addEntity(list.get(j));
+                            break;
                         }
                     }
                 }

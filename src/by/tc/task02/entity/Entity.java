@@ -14,17 +14,10 @@ public class Entity {
         this.level = level;
     }
 
-    /* public Entity(Entity e, int lvl){
-        list = new ArrayList<>();
-        list.add(e);
-        this.level = lvl;
+    public Entity(int level, String value) {
+        this.value = value;
+        this.level = level;
     }
-
-    public Entity(String tag, String info, int lvl) {
-        attributes = new HashMap<>();
-        attributes.put(tag,info);
-        this.level = lvl;
-    } */
 
     public String getTag() {
         return tag;
@@ -57,4 +50,15 @@ public class Entity {
         list.add(e);
     }
 
+    @Override
+    public String toString() {
+        String str = "[Tag: " + tag + "\t" + "Value: " + value + "\t" + "Level: " + level;
+        if (list != null) {
+            for (Entity e : list) {
+                str = str + e.toString();
+            }
+        }
+        str = str + "]";
+        return str;
+    }
 }
