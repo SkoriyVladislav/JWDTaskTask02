@@ -55,7 +55,6 @@ public class EntityListServiceImpl implements EntityListService {
             }
 
             list.get(list.size() - 1).setValue(line);
-            //list.add(new Entity(level, line));
         }
     }
 
@@ -70,7 +69,26 @@ public class EntityListServiceImpl implements EntityListService {
             }
         }
 
-        for (int i = maxDepend; i > 0; i--) {
+        for (int i = maxDepend; i >= 0; i--) {
+            List<Entity> listTemp = null;
+
+            for (int j = list.size() - 1; j >= 0; j--) {
+
+                if (list.get(j).getLevel() == i) {
+                    if (listTemp == null) {
+                        listTemp = new ArrayList<>();
+                    }
+                    listTemp.add(list.get(j));
+                }
+
+                if (list.get(j).getLevel() == i-1 && listTemp != null) {
+                    list.get(j).addEntity(listTemp);
+                    listTemp = null;
+                }
+            }
+        }
+
+        /*for (int i = maxDepend; i > 0; i--) {
 
             for(int j = 0; j < list.size(); j++) {
 
@@ -86,6 +104,7 @@ public class EntityListServiceImpl implements EntityListService {
                     }
                 }
             }
-        }
+        }*/
+
     }
 }

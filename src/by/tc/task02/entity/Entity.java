@@ -14,11 +14,6 @@ public class Entity {
         this.level = level;
     }
 
-    public Entity(int level, String value) {
-        this.value = value;
-        this.level = level;
-    }
-
     public String getTag() {
         return tag;
     }
@@ -48,6 +43,15 @@ public class Entity {
             list = new ArrayList<>();
         }
         list.add(e);
+    }
+
+    public void addEntity(List<Entity> e) {
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        for (Entity entity : e) {
+            list.add(entity);
+        }
     }
 
     @Override
