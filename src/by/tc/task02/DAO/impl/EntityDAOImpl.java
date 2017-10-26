@@ -25,7 +25,7 @@ public class EntityDAOImpl implements EntityDAO {
     private void parseResourses(Queue<String> queue) {
 
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("by/tc/task02/resources/task02.xml").getFile());
+        File file = new File(classLoader.getResource("resources/task02.xml").getFile());
 
         try (final BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(file)))){
