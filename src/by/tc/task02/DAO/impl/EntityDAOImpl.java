@@ -54,7 +54,6 @@ public class EntityDAOImpl implements EntityDAO {
 
         initializationList(list,queue);
         introdOfDepend(list);
-
         return list;
     }
 
