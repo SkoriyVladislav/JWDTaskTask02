@@ -47,6 +47,13 @@ public class EntityDAOImpl implements EntityDAO {
         }
     }
 
+    private String formatLine(String line) {
+        line = line.replaceAll("<^/", "\n<");
+        line = line.replaceAll(">", ">\n");
+        line = line.replaceAll("</", "\n</");
+        return line;
+    }
+
     @Override
     public List<Entity> createListEntity() {
         Queue<String> queue = createQueue();
@@ -54,14 +61,8 @@ public class EntityDAOImpl implements EntityDAO {
 
         initializationList(list,queue);
         introdOfDepend(list);
-        return list;
-    }
 
-    private String formatLine(String line) {
-        line = line.replaceAll("<^/", "\n<");
-        line = line.replaceAll(">", ">\n");
-        line = line.replaceAll("</", "\n</");
-        return line;
+        return list;
     }
 
     private void initializationList(List<Entity> list, Queue<String> queue) {
