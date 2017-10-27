@@ -12,7 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EntityDAOImpl implements EntityDAO {
-    final static private String OPENTAG = "<([^/])+>";
+    final static private String OPENTAG = "<([^/?])+>";
+    final static private String NOTTAG = "[^<].+";
     final static private String CLOUSETAG = "</(\\w|(-))+>";
 
     @Override
@@ -81,7 +82,7 @@ public class EntityDAOImpl implements EntityDAO {
                 continue;
             }
 
-            if (!line.isEmpty()) {
+            if (!line.isEmpty() && Pattern.matches(NOTTAG, line)) {
                 list.get(list.size() - 1).setValue(line);
             }
         }
